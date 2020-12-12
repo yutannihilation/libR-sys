@@ -83,9 +83,9 @@ jobs:
         run: |
           cargo build -vv --target i686-pc-windows-gnu
         env:
-          LIBCLANG_PATH: C:/msys64/mingw64/bin
+          LIBCLANG_PATH: C:/msys64/mingw32/bin
       - name: Run tests
         run: |
           cargo test --target i686-pc-windows-gnu -- --nocapture --test-threads=1
         env:
-          LIBCLANG_PATH: C:/msys64/mingw64/bin
+          LIBCLANG_PATH: C:/msys64/mingw32/bin
