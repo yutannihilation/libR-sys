@@ -65,6 +65,9 @@ jobs:
           release: false
           update: false
           install: >-
+            mingw-w64-x86_64-clang
+            mingw-w64-x86_64-headers-git
+            mingw-w64-x86_64-make
             mingw32/mingw-w64-i686-clang
             mingw-w64-i686-toolchain
             mingw-w64-i686-gcc
