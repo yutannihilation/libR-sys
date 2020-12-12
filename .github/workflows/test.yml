@@ -67,6 +67,8 @@ jobs:
           install: >-
             mingw32/mingw-w64-i686-clang
             mingw-w64-i686-toolchain
+            mingw-w64-i686-gcc
+            mingw-w64-i686-headers-git
       - uses: r-lib/actions/setup-r@v1
         with:
           r-version: 'release'
