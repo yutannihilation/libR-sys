@@ -60,7 +60,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: msys2/setup-msys2@v2
         with:
-          msystem: MINGW32
+          msystem: MINGW64
           path-type: inherit
           release: false
           update: false
@@ -88,9 +88,9 @@ jobs:
         run: |
           cargo build -vv --target i686-pc-windows-gnu
         env:
-          LIBCLANG_PATH: C:/msys64/mingw32/bin
+          LIBCLANG_PATH: C:/msys64/mingw64/bin
       - name: Run tests
         run: |
           cargo test --target i686-pc-windows-gnu -- --nocapture --test-threads=1
         env:
-          LIBCLANG_PATH: C:/msys64/mingw32/bin
+          LIBCLANG_PATH: C:/msys64/mingw64/bin
