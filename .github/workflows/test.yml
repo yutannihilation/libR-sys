@@ -148,18 +148,28 @@ jobs:
         
     - name: Display structure of downloaded files
       run: |
+        echo "cp"
         cp generated_binding-*/*.rs bindings/
 
         # detect changes (the code is derived from https://stackoverflow.com/a/3879077)
+        echo "git add"
         git add bindings/
+
+        echo "detect changes"
         git update-index --refresh 
         git diff-index --quiet HEAD -- bindings/
         if($LASTEXITCODE -eq 1) {
+          echo "git switch"
           git switch -c "update-bindings-$(date +%s)"
+          echo "git config"
           git config --local user.name "${env:GITHUB_ACTOR}"
           git config --local user.email "${env:GITHUB_ACTOR}@users.noreply.github.com"
+          echo "git commit"
           git commit -m "Update bindings [skip ci]"
+          echo "hub"
           hub pull-request --base $env:GITHUB_REF" --push --message "Update bindings"
         } else {
           echo "No changes"
         }
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
