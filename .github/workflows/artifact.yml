@@ -1,0 +1,19 @@
+name: Artifact
+
+on:
+  push:
+    branches:
+      - ci/*
+
+jobs:
+  artifact:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+
+    - uses: actions/download-artifact@master
+      with:
+        name: "macOS-11 (R-release rust-nightly) generated bindings"
+        
+    - name: Display structure of downloaded files
+      run: ls -R
