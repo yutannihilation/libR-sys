@@ -326,7 +326,7 @@ jobs:
           echo "Please check the diff at <https://github.com/extendr/libR-sys/compare/master...generated_bindings?expand=1>" >> .msg
 
           if ! (hub issue | grep -q "Update the precomputed bindings"); then
-            hub issue -F .msg
+            hub issue create -F .msg
 
             hub pull-request --base master -m "Update the precomputed bindings"
           fi
