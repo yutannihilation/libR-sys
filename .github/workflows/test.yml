@@ -148,14 +148,22 @@ jobs:
         
     - name: Display structure of downloaded files
       run: |
+        # Update or add the bindings
         cp generated_binding-*/*.rs bindings/
+
+        # Replace the default bindings
+        cd bindings
+        for x in linux-x86_64 macos-aarch64 macos-x86_64 windows-x86 windows-x86_64; do
+          # Choose the newest version except for devel
+          ln --force -s "$(ls -1 ./bindings-${x}-*.rs | grep -v devel | sort | tail -1)" ./bindings-${x}.rs
+        done
+        cd ..
 
         # detect changes (the code is derived from https://stackoverflow.com/a/3879077)
         git add bindings/
 
-        git update-index --refresh 
-        git diff-index --quiet HEAD -- bindings/
-        if [ "$?" -eq 1 ]; then
+        git update-index --refresh
+        if [ ! git diff-index --quiet HEAD -- bindings/ ]; then
           git switch -c "update-bindings-$(date +%s)"
           git config --local user.name "${GITHUB_ACTOR}"
           git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
