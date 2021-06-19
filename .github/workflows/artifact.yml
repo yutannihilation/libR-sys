@@ -9,11 +9,11 @@ jobs:
   artifact:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
 
-    - uses: actions/download-artifact@master
+    - uses: actions/download-artifact@v2
       with:
-        name: "macOS-11 (R-release rust-nightly) generated bindings"
+        name: "macOS-latest (R-devel rust-stable) generated bindings"
         
     - name: Display structure of downloaded files
       run: ls -R
