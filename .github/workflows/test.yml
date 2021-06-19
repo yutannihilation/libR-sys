@@ -148,6 +148,18 @@ jobs:
         
     - name: Display structure of downloaded files
       run: |
-        ls -R
         cp generated_binding-*/*.rs bindings/
-        git diff
+
+        # detect changes (the code is derived from https://stackoverflow.com/a/3879077)
+        git add bindings/
+        git update-index --refresh 
+        git diff-index --quiet HEAD -- bindings/
+        if($LASTEXITCODE -eq 1) {
+          git switch -c "update-bindings-$(date +%s)"
+          git config --local user.name "${env:GITHUB_ACTOR}"
+          git config --local user.email "${env:GITHUB_ACTOR}@users.noreply.github.com"
+          git commit -m "Update bindings [skip ci]"
+          hub pull-request --base $env:GITHUB_REF" --push --message "Update bindings"
+        } else {
+          echo "No changes"
+        }
