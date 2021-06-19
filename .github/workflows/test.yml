@@ -5,11 +5,13 @@ on:
     branches:
       - main
       - master
-      - ci/test-*
   pull_request:
     branches:
       - main
       - master
+  # Run this once per three days
+  schedule:
+    - cron: '29 17 */3 * *'
 
 jobs:
 
@@ -270,10 +272,14 @@ jobs:
           }
         env: 
           NO_TEST_TARGETS: ${{ join(matrix.config.no-test-targets, ',') }}
-      
-  artifact:
+  
+  # Gather the generated bindings and push them to generated_bindings branch.
+  # If we need to update the bindings, create a pull request from that branch.
+  commit_generated_bindings:
     needs: test_with_bindgen
     runs-on: ubuntu-latest
+    # Do not run this on pull request
+    if: github.ref == 'refs/heads/master'
     steps:
     - uses: actions/checkout@v2
 
@@ -297,11 +303,10 @@ jobs:
 
         git update-index --refresh
         if ! git diff-index --quiet HEAD -- bindings/; then
-          git switch -c "update-bindings-$(date +%s)"
           git config --local user.name "${GITHUB_ACTOR}"
           git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git commit -m "Update bindings [skip ci]"
-          hub pull-request --base "${GITHUB_REF}" --push --message "Update bindings"
+          git push origin "${GITHUB_REF}":generated_bindings
         else
           echo "No changes"
         fi
