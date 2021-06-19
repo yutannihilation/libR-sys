@@ -163,7 +163,7 @@ jobs:
         git add bindings/
 
         git update-index --refresh
-        if [ ! git diff-index --quiet HEAD -- bindings/ ]; then
+        if ! git diff-index --quiet HEAD -- bindings/; then
           git switch -c "update-bindings-$(date +%s)"
           git config --local user.name "${GITHUB_ACTOR}"
           git config --local user.email "${GITHUB_ACTOR}@users.noreply.github.com"
