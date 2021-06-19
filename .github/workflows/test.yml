@@ -130,11 +130,6 @@ jobs:
       #      OR rust is any and 'emit-bindings' == 'true'),
       # upload bindings
       - name: Upload generated bindings
-        if: 
-          steps.build.outcome == 'success' && 
-          steps.test.outcome == 'success' && 
-          ((startsWith(matrix.config.rust-version, 'stable') && matrix.config.emit-bindings != 'false') ||
-            (matrix.config.emit-bindings == 'true'))
         uses: actions/upload-artifact@main
         with:
           name: generated_binding-${{ matrix.config.os }}-R-${{ matrix.config.r }}-rust-${{ matrix.config.rust-version }}
