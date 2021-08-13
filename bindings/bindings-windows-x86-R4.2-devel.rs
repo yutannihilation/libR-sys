@@ -299,8 +299,8 @@ pub const R_MINOR: &'static [u8; 4usize] = b"2.0\0";
 pub const R_STATUS: &'static [u8; 29usize] = b"Under development (unstable)\0";
 pub const R_YEAR: &'static [u8; 5usize] = b"2021\0";
 pub const R_MONTH: &'static [u8; 3usize] = b"08\0";
-pub const R_DAY: &'static [u8; 3usize] = b"09\0";
-pub const R_SVN_REVISION: u32 = 80724;
+pub const R_DAY: &'static [u8; 3usize] = b"12\0";
+pub const R_SVN_REVISION: u32 = 80748;
 pub type size_t = ::std::os::raw::c_uint;
 pub type wchar_t = ::std::os::raw::c_ushort;
 #[doc = " <div rustbindgen replaces=\"R_xlen_t\"></div>"]
@@ -5891,6 +5891,9 @@ extern "C" {
 }
 extern "C" {
     pub fn SET_NAMED(x: SEXP, v: ::std::os::raw::c_int);
+}
+extern "C" {
+    pub fn R_tryWrap(arg1: SEXP) -> SEXP;
 }
 extern "C" {
     pub static mut R_CStackLimit: usize;
