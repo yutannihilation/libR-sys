@@ -29,7 +29,7 @@ jobs:
     # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#issue_comment
     if: |
       github.event_name != 'issue_comment'
-      || (github.event.issue.pull_request && github.event.comment.author_association == 'MEMBER' && startsWith(github.event.comment.body, '/bindings'))
+      || (github.event.issue.pull_request && github.event.comment.author_association == 'OWNER' && startsWith(github.event.comment.body, '/bindings'))
 
     runs-on: ${{ matrix.config.os }}
 
@@ -391,7 +391,7 @@ jobs:
     # Run this only when the event is a push to the master or the /bindings command
     if: |
       (github.event_name != 'issue_comment' && github.ref == 'refs/heads/master')
-      || (github.event.comment && github.event.issue.pull_request && github.event.comment.author_association == 'MEMBER' && startsWith(github.event.comment.body, '/bindings'))
+      || (github.event.comment && github.event.issue.pull_request && github.event.comment.author_association == 'OWNER' && startsWith(github.event.comment.body, '/bindings'))
     steps:
     - uses: actions/checkout@v2
 
