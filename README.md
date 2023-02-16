@@ -7,6 +7,7 @@ Low-level R library bindings
 [![Documentation](https://docs.rs/libR-sys/badge.svg)](https://docs.rs/libR-sys)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+
 ## Installation
 
 The recommended way to build this library is to use precompiled bindings, which are available for `Linux`, `macOS`, and `Windows`.
