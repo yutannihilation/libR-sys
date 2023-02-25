@@ -44,7 +44,8 @@ jobs:
   commit_nonAPI_txt:
     needs: update_nonAPI_txt
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    # TODO: Uncomment this
+    # if: github.ref == 'refs/heads/master'
     steps:
     - uses: actions/checkout@v3
 
