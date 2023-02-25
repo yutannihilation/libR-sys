@@ -19,7 +19,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest}
+          # TODO: uncomment
+          # - {os: windows-latest}
           - {os: macOS-latest}
           - {os: ubuntu-latest}
 
@@ -36,9 +37,9 @@ jobs:
         shell: bash
 
       - name: Upload nonAPI.txt
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@v3
         with:
-          name: nonAPI-${{ matrix.config.os }}.txt
+          name: nonAPI-${{ matrix.config.os }}
           path: nonAPI.txt
 
   commit_nonAPI_txt:
@@ -49,7 +50,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v3
 
     - name: Switch branch
       run: |
@@ -65,7 +66,7 @@ jobs:
     - name: Commit and create a pull request
       run: |
         # Merge all nonAPI.txt 
-        cat nonAPI-*.txt | sort -u | tee nonAPI.txt
+        cat nonAPI-*/nonAPI.txt | sort -u | tee nonAPI.txt
 
         # detect changes (the code is derived from https://stackoverflow.com/a/3879077)
         git add nonAPI.txt
