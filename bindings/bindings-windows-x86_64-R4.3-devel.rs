@@ -82,8 +82,8 @@ pub const R_MINOR: &[u8; 4usize] = b"3.0\0";
 pub const R_STATUS: &[u8; 29usize] = b"Under development (unstable)\0";
 pub const R_YEAR: &[u8; 5usize] = b"2023\0";
 pub const R_MONTH: &[u8; 3usize] = b"02\0";
-pub const R_DAY: &[u8; 3usize] = b"27\0";
-pub const R_SVN_REVISION: u32 = 83911;
+pub const R_DAY: &[u8; 3usize] = b"23\0";
+pub const R_SVN_REVISION: u32 = 83894;
 pub const R_GE_definitions: u32 = 13;
 pub const R_GE_deviceClip: u32 = 14;
 pub const R_GE_group: u32 = 15;
@@ -343,13 +343,13 @@ fn bindgen_test_layout_Rcomplex() {
     );
 }
 extern "C" {
-    pub fn Rf_error(arg1: *const ::std::os::raw::c_char, ...);
+    pub fn Rf_error(arg1: *const ::std::os::raw::c_char, ...) -> !;
 }
 extern "C" {
-    pub fn UNIMPLEMENTED(arg1: *const ::std::os::raw::c_char);
+    pub fn UNIMPLEMENTED(arg1: *const ::std::os::raw::c_char) -> !;
 }
 extern "C" {
-    pub fn WrongArgCount(arg1: *const ::std::os::raw::c_char);
+    pub fn WrongArgCount(arg1: *const ::std::os::raw::c_char) -> !;
 }
 extern "C" {
     pub fn Rf_warning(arg1: *const ::std::os::raw::c_char, ...);
