@@ -163,8 +163,8 @@ pub const R_MINOR: &[u8; 4usize] = b"4.0\0";
 pub const R_STATUS: &[u8; 29usize] = b"Under development (unstable)\0";
 pub const R_YEAR: &[u8; 5usize] = b"2023\0";
 pub const R_MONTH: &[u8; 3usize] = b"03\0";
-pub const R_DAY: &[u8; 3usize] = b"24\0";
-pub const R_SVN_REVISION: u32 = 84048;
+pub const R_DAY: &[u8; 3usize] = b"27\0";
+pub const R_SVN_REVISION: u32 = 84084;
 pub const R_GE_definitions: u32 = 13;
 pub const R_GE_deviceClip: u32 = 14;
 pub const R_GE_group: u32 = 15;
@@ -1899,6 +1899,9 @@ extern "C" {
 }
 extern "C" {
     pub fn R_ParseEvalString(arg1: *const ::std::os::raw::c_char, arg2: SEXP) -> SEXP;
+}
+extern "C" {
+    pub fn R_ParseString(arg1: *const ::std::os::raw::c_char) -> SEXP;
 }
 extern "C" {
     pub fn Rf_PrintValue(arg1: SEXP);
