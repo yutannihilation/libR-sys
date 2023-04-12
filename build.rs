@@ -441,15 +441,26 @@ fn generate_bindings(r_paths: &InstallationPaths, version_info: &RVersionInfo) {
 
     // Put all the symbols into allowlist
     let mut allowlist = std::collections::HashSet::new();
+
+    let mut problematic_items: Vec<String> = Vec::new();
+
     for e in e {
         match e.get_kind() {
             EnumDecl | FunctionDecl | StructDecl | TypedefDecl | VarDecl | UnionDecl => {
                 if let Some(n) = e.get_name() {
-                    allowlist.insert(n);
+                    if !n.contains("(unnamed at") {
+                        allowlist.insert(n);
+                    } else {
+                        problematic_items.push(format!("{:?}", e));
+                    }
                 }
             }
             _ => panic!("Unknown kind: {:?}", e),
         }
+    }
+
+    if !allowlist.is_empty() {
+        panic!("entities: {}", problematic_items.join("\n\n"));
     }
 
     // Do some regex-fu against the text content of all the include files. This
