@@ -204,6 +204,9 @@ jobs:
         env: 
           NO_TEST_TARGETS: ${{ join(matrix.config.no-test-targets, ',') }}
 
+      - name: Debug
+        run: git diff bindings/
+
       # Run tests again using different bindings
       - name: Run tests on precomputed bindings shipped with libR-sys
         run: |
