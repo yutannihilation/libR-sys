@@ -204,12 +204,11 @@ jobs:
         env: 
           NO_TEST_TARGETS: ${{ join(matrix.config.no-test-targets, ',') }}
 
-      - name: Debug
-        run: git diff bindings/
-
       # Run tests again using different bindings
       - name: Run tests on precomputed bindings shipped with libR-sys
         run: |
+          cp generated_bindings/* bindings/
+          
           . ./ci-cargo.ps1
           foreach ($target in ($env:RUST_TARGETS).Split(",")) {
             if(($env:NO_TEST_TARGETS).Split(",").Contains($target)) {
