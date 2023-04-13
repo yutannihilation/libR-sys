@@ -204,20 +204,6 @@ jobs:
         env: 
           NO_TEST_TARGETS: ${{ join(matrix.config.no-test-targets, ',') }}
 
-      # If success
-      # AND (either rust is stable and 'emit-bindings' != 'false'
-      #      OR rust is any and 'emit-bindings' == 'true'),
-      # upload bindings
-      - name: Upload generated bindings
-        if: 
-          steps.build.outcome == 'success' && 
-          steps.test.outcome == 'success' && 
-          matrix.config.emit-bindings == 'true'
-        uses: actions/upload-artifact@main
-        with:
-          name: generated_binding-${{ matrix.config.os }}-R-${{ matrix.config.r }}-rust-${{ matrix.config.rust-version }}
-          path: generated_bindings
-
       # Run tests again using different bindings
       - name: Run tests on precomputed bindings shipped with libR-sys
         run: |
