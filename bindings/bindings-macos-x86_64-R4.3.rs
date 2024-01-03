@@ -3,7 +3,7 @@
 /* libR-sys version: 0.6.0 */
 /* bindgen clang version: Homebrew clang version 17.0.6 */
 /* clang-rs version: Homebrew clang version 17.0.6 */
-/* r version: 4.4.0-devel */
+/* r version: 4.3.2 */
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
@@ -100,7 +100,6 @@ pub const HAVE_ALLOCA_H: u32 = 1;
 pub const HAVE_UINTPTR_T: u32 = 1;
 pub const R_XLEN_T_MAX: u64 = 4503599627370496;
 pub const R_SHORT_LEN_MAX: u32 = 2147483647;
-pub const R_PRIdXLEN_T: &[u8; 3] = b"td\0";
 pub const NILSXP: u32 = 0;
 pub const SYMSXP: u32 = 1;
 pub const LISTSXP: u32 = 2;
@@ -124,7 +123,6 @@ pub const BCODESXP: u32 = 21;
 pub const EXTPTRSXP: u32 = 22;
 pub const WEAKREFSXP: u32 = 23;
 pub const RAWSXP: u32 = 24;
-pub const OBJSXP: u32 = 25;
 pub const S4SXP: u32 = 25;
 pub const NEWSXP: u32 = 30;
 pub const FREESXP: u32 = 31;
@@ -146,7 +144,7 @@ pub const HT_TYPE_IDENTICAL: u32 = 0;
 pub const HT_TYPE_ADDRESS: u32 = 1;
 pub const RSTART_VERSION: u32 = 1;
 pub const __STDC_WANT_IEC_60559_FUNCS_EXT__: u32 = 1;
-pub const R_VERSION_STRING: &[u8; 6] = b"4.4.0\0";
+pub const R_VERSION_STRING: &[u8; 6] = b"4.3.2\0";
 pub const HAVE_EXPM1: u32 = 1;
 pub const HAVE_HYPOT: u32 = 1;
 pub const HAVE_LOG1P: u32 = 1;
@@ -160,15 +158,15 @@ pub const M_LN_2PI: f64 = 1.8378770664093456;
 pub const M_LN_SQRT_PI: f64 = 0.5723649429247001;
 pub const M_LN_SQRT_2PI: f64 = 0.9189385332046728;
 pub const M_LN_SQRT_PId2: f64 = 0.22579135264472744;
-pub const R_VERSION: u32 = 263168;
-pub const R_NICK: &[u8; 24] = b"Unsuffered Consequences\0";
+pub const R_VERSION: u32 = 262914;
+pub const R_NICK: &[u8; 10] = b"Eye Holes\0";
 pub const R_MAJOR: &[u8; 2] = b"4\0";
-pub const R_MINOR: &[u8; 4] = b"4.0\0";
-pub const R_STATUS: &[u8; 29] = b"Under development (unstable)\0";
-pub const R_YEAR: &[u8; 5] = b"2024\0";
-pub const R_MONTH: &[u8; 3] = b"01\0";
-pub const R_DAY: &[u8; 3] = b"02\0";
-pub const R_SVN_REVISION: u32 = 85758;
+pub const R_MINOR: &[u8; 4] = b"3.2\0";
+pub const R_STATUS: &[u8; 1] = b"\0";
+pub const R_YEAR: &[u8; 5] = b"2023\0";
+pub const R_MONTH: &[u8; 3] = b"10\0";
+pub const R_DAY: &[u8; 3] = b"31\0";
+pub const R_SVN_REVISION: u32 = 85441;
 pub const R_GE_definitions: u32 = 13;
 pub const R_GE_deviceClip: u32 = 14;
 pub const R_GE_group: u32 = 15;
@@ -467,7 +465,7 @@ pub struct structRstart {
     pub ppsize: usize,
     pub _bitfield_align_1: [u16; 0],
     pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize]>,
-    pub nconnections: ::std::os::raw::c_int,
+    pub __bindgen_padding_0: u32,
 }
 impl structRstart {
     #[inline]
@@ -1137,10 +1135,6 @@ extern "C" {
     pub fn R_IsNA(arg1: f64) -> ::std::os::raw::c_int;
     pub fn R_IsNaN(arg1: f64) -> ::std::os::raw::c_int;
     pub fn R_finite(arg1: f64) -> ::std::os::raw::c_int;
-    pub fn Rprintf(arg1: *const ::std::os::raw::c_char, ...);
-    pub fn REprintf(arg1: *const ::std::os::raw::c_char, ...);
-    pub fn Rvprintf(arg1: *const ::std::os::raw::c_char, arg2: *mut __va_list_tag);
-    pub fn REvprintf(arg1: *const ::std::os::raw::c_char, arg2: *mut __va_list_tag);
     pub fn Rf_error(arg1: *const ::std::os::raw::c_char, ...) -> !;
     pub fn UNIMPLEMENTED(arg1: *const ::std::os::raw::c_char) -> !;
     pub fn WrongArgCount(arg1: *const ::std::os::raw::c_char) -> !;
@@ -1269,6 +1263,10 @@ extern "C" {
         maxes: *mut ::std::os::raw::c_int,
         ties_meth: *mut ::std::os::raw::c_int,
     );
+    pub fn Rprintf(arg1: *const ::std::os::raw::c_char, ...);
+    pub fn REprintf(arg1: *const ::std::os::raw::c_char, ...);
+    pub fn Rvprintf(arg1: *const ::std::os::raw::c_char, arg2: *mut __va_list_tag);
+    pub fn REvprintf(arg1: *const ::std::os::raw::c_char, arg2: *mut __va_list_tag);
     pub fn R_registerRoutines(
         info: *mut DllInfo,
         croutines: *const R_CMethodDef,
@@ -1558,6 +1556,7 @@ extern "C" {
     pub fn Rf_allocVector3(arg1: SEXPTYPE, arg2: R_xlen_t, arg3: *mut R_allocator_t) -> SEXP;
     pub fn Rf_any_duplicated(x: SEXP, from_last: Rboolean) -> R_xlen_t;
     pub fn Rf_any_duplicated3(x: SEXP, incomp: SEXP, from_last: Rboolean) -> R_xlen_t;
+    pub fn Rf_applyClosure(arg1: SEXP, arg2: SEXP, arg3: SEXP, arg4: SEXP, arg5: SEXP) -> SEXP;
     pub fn Rf_classgets(arg1: SEXP, arg2: SEXP) -> SEXP;
     pub fn Rf_cons(arg1: SEXP, arg2: SEXP) -> SEXP;
     pub fn Rf_copyMatrix(arg1: SEXP, arg2: SEXP, arg3: Rboolean);
@@ -1604,7 +1603,6 @@ extern "C" {
     pub fn Rf_isOrdered(arg1: SEXP) -> Rboolean;
     pub fn Rf_isUnordered(arg1: SEXP) -> Rboolean;
     pub fn Rf_isUnsorted(arg1: SEXP, arg2: Rboolean) -> Rboolean;
-    pub fn R_isTRUE(arg1: SEXP) -> Rboolean;
     pub fn Rf_lengthgets(arg1: SEXP, arg2: R_len_t) -> SEXP;
     pub fn Rf_xlengthgets(arg1: SEXP, arg2: R_xlen_t) -> SEXP;
     pub fn R_lsInternal(arg1: SEXP, arg2: Rboolean) -> SEXP;
@@ -1636,7 +1634,6 @@ extern "C" {
     pub fn Rf_translateChar(arg1: SEXP) -> *const ::std::os::raw::c_char;
     pub fn Rf_translateCharUTF8(arg1: SEXP) -> *const ::std::os::raw::c_char;
     pub fn Rf_type2char(arg1: SEXPTYPE) -> *const ::std::os::raw::c_char;
-    pub fn R_typeToChar(arg1: SEXP) -> *const ::std::os::raw::c_char;
     pub fn Rf_type2rstr(arg1: SEXPTYPE) -> SEXP;
     pub fn Rf_type2str(arg1: SEXPTYPE) -> SEXP;
     pub fn Rf_type2str_nowarn(arg1: SEXPTYPE) -> SEXP;
